@@ -3,7 +3,7 @@ from flask import Flask
 from flask_restful import Api
 
 from resource.menu import MenuResource, MenuItem, MenuListing, MenuKeywordMatching
-from resource.bill import BillResource, BillOrderManagement, BillChecking, BillUpdateQuantity
+from resource.bill import BillResource, BillOrderManagement, BillChecking, BillUpdateQuantity, BillSummary
 
 name_db = "restaurant.db"
 sqlite = "sqlite:///:{}".format(name_db)
@@ -22,7 +22,7 @@ api.add_resource(BillResource, '/bill/')
 api.add_resource(BillChecking, '/bill/id/')
 api.add_resource(BillOrderManagement, '/bill/manage/')
 api.add_resource(BillUpdateQuantity, '/bill/manage/quantities/')
-
+api.add_resource(BillSummary, '/bill/summary/<string:bill_id>')
 
 @app.before_first_request
 def create_tables():

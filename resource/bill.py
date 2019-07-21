@@ -198,3 +198,34 @@ class BillChecking(Resource):
                 return jsonify(result=BillSchema().dump({**bill_id, **menu_dict}).data,
                                status=200,
                                error={})
+
+
+class BillSummary(Resource):
+    def get(self, bill_id):
+        bill_id = str(bill_id)
+        exists_bill = BillModel.search_bill_order(bill_id=bill_id)
+        if exists_bill:
+            print(exists_bill)
+            menu = []
+            for i in exists_bill:
+                menu.append(i[1])
+            sum_price = 0
+            menu_count = {}
+            for item in menu:
+                if item.name in menu_count:
+                    menu_count[item.name] += 1
+                else:
+                    menu_count[item.name] = 1
+            for key, value in menu_count.items():
+                price = BillMenu.search_price(key)
+                sum_price += (price[1] * value)
+
+            return jsonify(result={'bill_id': bill_id,
+                                   'menu': menu_count,
+                                   'total_price': sum_price},
+                           status=200,
+                           error={})
+        else:
+            return jsonify(result={},
+                           status=404,
+                           error={})
