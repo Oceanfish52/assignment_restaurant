@@ -27,5 +27,5 @@ $ python app.py
 $ curl http://localhost:5002/menu/listing/
 $ curl http://localhost:5002/menu/search/Hot
 ```
-<p> I also attached Postman link to be assignment submit as [link] </p>
+<p> I also attached Postman link to be assignment submit as [Postman Link]<https://www.getpostman.com/collections/6dd34a26817e5dcad9a3> </p>
 
